@@ -72,9 +72,6 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-10">
-      <div className="text-center mb-8">
-        <p>HELLO FLIP</p>
-      </div>
       {allImagesRemoved ? (
         <p>WIN</p>
       ) : (
