@@ -3,17 +3,21 @@ import back from "./assets/back.png";
 import a from "./assets/1.png";
 import b from "./assets/2.png";
 import c from "./assets/3.png";
+import d from "./assets/4.png";
+import e from "./assets/5.png";
+import f from "./assets/6.png";
 import "./App.css";
 
 function App() {
-  const [flipped, setFlipped] = useState(Array(6).fill(false));
+  const [flipped, setFlipped] = useState(Array(12).fill(false));
   const [images, setImages] = useState([]);
-  const [removed, setRemoved] = useState(Array(6).fill(false));
+  const [removed, setRemoved] = useState(Array(12).fill(false));
   const [flippedIndices, setFlippedIndices] = useState([]);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     // Initialize the images array with 2 instances of 'a' and 2 instances of 'b'
-    const initialImages = [a, b, c, a, b, c];
+    const initialImages = [a, b, c, d, e, f, a, b, c, d, e, f];
     // Shuffle the array
     const shuffledImages = initialImages.sort(() => Math.random() - 0.5);
     // Set the shuffled images
@@ -32,6 +36,7 @@ function App() {
     setFlippedIndices((prevIndices) => {
       const newIndices = [...prevIndices, index];
       if (newIndices.length === 2) {
+        setCounter(counter + 1);
         checkMatch(newIndices);
       }
       return newIndices.length === 2 ? [] : newIndices;
@@ -73,23 +78,31 @@ function App() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen p-10">
       {allImagesRemoved ? (
-        <p>WIN</p>
+        <div className="flex flex-col items-center">
+          <p>YOU WIN!!</p>
+          <h2>Times Flipped: {counter}</h2>
+        </div>
       ) : (
-        <div className="justify-center grid grid-cols-3 grid-rows-2 w-2/4">
-          {flipped.map((isFlipped, index) => (
-            <div
-              key={index}
-              className="flex justify-center items-center"
-              onClick={() => handleFlip(index)}
-            >
-              <img
-                src={isFlipped ? images[index] : back}
-                id={isFlipped ? getIdFromImage(images[index]) : "back"}
-                alt=""
-                className="w-36 m-10"
-              />
-            </div>
-          ))}
+        <div>
+          <div>
+            <h2>Counter: {counter}</h2>
+          </div>
+          <div className="justify-center grid grid-cols-6 grid-rows-2 w-full">
+            {flipped.map((isFlipped, index) => (
+              <div
+                key={index}
+                className="flex justify-center items-center m-2"
+                onClick={() => handleFlip(index)}
+              >
+                <img
+                  src={isFlipped ? images[index] : back}
+                  id={isFlipped ? getIdFromImage(images[index]) : "back"}
+                  alt=""
+                  className=" w-4/5 m-10"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
