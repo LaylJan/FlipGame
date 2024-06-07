@@ -16,11 +16,10 @@ function App() {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    // Initialize the images array with 2 instances of 'a' and 2 instances of 'b'
     const initialImages = [a, b, c, d, e, f, a, b, c, d, e, f];
-    // Shuffle the array
+
     const shuffledImages = initialImages.sort(() => Math.random() - 0.5);
-    // Set the shuffled images
+
     setImages(shuffledImages);
   }, []);
 
